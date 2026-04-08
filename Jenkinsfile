@@ -3,6 +3,12 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/bhavyasri1010/bhavyasri-war.git'
+            }
+        }
+
         stage('Build WAR') {
             steps {
                 sh '''
