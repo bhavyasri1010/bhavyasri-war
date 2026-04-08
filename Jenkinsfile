@@ -3,13 +3,18 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/bhavyasri1010/bhavyasri-jar.git'
+            }
+        }
+
         stage('Build WAR') {
             steps {
                 sh '''
-                    cd /home/user/CalculatorApplicationWAR
                     mvn clean package
 
-                    # Copy WAR to workspace
+                    # Copy WAR to workspace (optional, already in workspace)
                     cp target/*.war $WORKSPACE/
                 '''
             }
@@ -18,7 +23,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '*.war'
+            archiveArtifacts artifacts: 'target/*.war'
         }
     }
 }
